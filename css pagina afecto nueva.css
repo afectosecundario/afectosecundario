@@ -1,0 +1,452 @@
+@charset "utf-8";
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: url("fondo textura 1.png") center / cover no-repeat fixed;
+}
+
+html,
+body,
+body * {
+  cursor: url("sticker naranja 28px.png") 14 14, auto;
+}
+
+body {
+  margin: 0;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", "Helvetica", "Arial", sans-serif;
+  color: var(--texto);
+}
+
+main {
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.footer img {
+  display: block;
+  max-width: min(100%, 350px);
+  height: auto;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 1 rem;
+}
+
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.banner img {
+  display: block;
+  max-width: 60%;
+  height: auto; 
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  width: min(100%, 980px);
+  margin: 0 auto 30px;
+}
+
+.boton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 120px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  color: var(--texto);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+
+.boton:hover {
+  cursor: url("sticker naranja arrugado 28px.png") 14 14, pointer;
+  color: #eb683d;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ==========================================================================
+  1. CONTENEDOR PRINCIPAL
+  Define el ancho máximo y sirve como referencia para posicionar los botones.
+  ========================================================================== */
+.carrusel-contenedor {
+ position: relative;        /* Permite posicionar la navegación de forma absoluta dentro de él */
+ max-width: 800px;          /* Ancho máximo del carrusel (ajustable según tu diseño) */
+ margin: 20px auto 0;        /* Separa el carrusel de la galería y lo centra */
+ overflow: hidden;          /* Oculta cualquier elemento que sobresalga de los bordes redondeados */
+ border-radius: 8px;        /* Bordes ligeramente redondeados (opcional) */
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra sutil para dar profundidad */
+}
+
+/* ==========================================================================
+  2. PISTA DESLIZANTE (EL MOTOR DEL CARRUSEL)
+  Alinea las imágenes una al lado de la otra y activa el deslizamiento suave.
+  ========================================================================== */
+.carrusel-pista {
+ display: flex;                      /* Coloca las diapositivas en una fila horizontal */
+ overflow-x: auto;                   /* Activa el scroll horizontal cuando el contenido desborda */
+ scroll-snap-type: x mandatory;      /* Obliga a que el scroll se detenga exactamente en cada imagen */
+ scroll-behavior: smooth;            /* Hace que el salto al hacer clic en los botones sea animado */
+ 
+ /* Oculta la barra de desplazamiento estándar para un aspecto más limpio */
+ scrollbar-width: none;              /* Para Firefox */
+ -ms-overflow-style: none;           /* Para Internet Explorer y Edge antiguo */
+}
+
+/* Oculta la barra de desplazamiento en Chrome, Safari y Opera */
+.carrusel-pista::-webkit-scrollbar {
+ display: none;
+}
+
+/* ==========================================================================
+  3. DIAPOSITIVAS E IMÁGENES
+  Asegura que cada imagen ocupe el 100% del espacio visible sin deformarse.
+  ========================================================================== */
+.carrusel-diapositiva {
+ flex: 0 0 100%;            /* Evita que la diapositiva se encoja o crezca; ocupa el 100% exacto */
+ scroll-snap-align: start;  /* Indica que el inicio de esta caja es el punto de anclaje magnético */
+}
+
+.carrusel-diapositiva:hover {
+  background-color: rgb(235, 104, 61, 0.497)/* Sutil cambio de fondo al pasar el ratón */
+}
+
+.carrusel-diapositiva img {
+ width: 100%;               /* La imagen se adapta al ancho del contenedor */
+ height: 400px;             /* Altura fija para mantener uniformidad entre fotos */
+ object-fit: cover;         /* Recorta los bordes de la imagen si es necesario sin estirarla */
+ display: block;            /* Elimina el pequeño espacio blanco inferior típico de las etiquetas <img> */
+}
+
+/* ==========================================================================
+  4. BOTONES DE NAVEGACIÓN (PUNTOS INFERIORES)
+  ========================================================================== */
+.carrusel-navegacion {
+ position: absolute;        /* Flota por encima de las imágenes */
+ bottom: 15px;              /* Distancia desde el borde inferior */
+ left: 50%;                 /* Mueve el inicio de la barra al centro horizontal */
+ transform: translateX(-50%); /* Centra la barra exactamente sobre su propio eje */
+ display: flex;             /* Alinea los puntos horizontalmente */
+ gap: 10px;                 /* Separación entre cada punto */
+ z-index: 10;               /* Asegura que los botones estén siempre por encima de las fotos */
+}
+
+.carrusel-navegacion a {
+ width: 12px;               /* Ancho del círculo */
+ height: 12px;              /* Alto del círculo */
+ border-radius: 50%;        /* Convierte el cuadrado en un círculo perfecto */
+ background-color: rgba(255, 255, 255, 0.6); /* Blanco semitransparente */
+ transition: background-color 0.3s ease, transform 0.2s ease; /* Animación suave al pasar el ratón */
+}
+
+/* Efecto visual al pasar el cursor sobre los puntos */
+.carrusel-navegacion a:hover {
+  cursor: url("sticker naranja arrugado 28px.png") 14 14, pointer;
+ background-color: #ffffff; /* Blanco sólido */
+ transform: scale(1.2);     /* Aumenta ligeramente su tamaño */
+}
+
+.galeria {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.galeria a {
+  display: block;
+  line-height: 0;
+  border-radius: 16px;
+  transition: transform 0.2s ease;
+}
+
+.galeria a:hover {
+  transform: scale(0.9);
+}
+
+.galeria a:focus-visible {
+  outline: 2px solid var(--texto);
+  outline-offset: 3px;
+}
+
+.galeria img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.contenido-video {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 32px;
+  max-width: 1000px;
+  margin: 32px auto 0;
+}
+
+.texto-galgos h2 {
+  margin-top: 0;
+}
+
+.texto-galgos p {
+  line-height: 1.6;
+}
+
+.video-galgos {
+  aspect-ratio: 16 / 9;
+}
+
+.video-galgos iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .contenido-video {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mosaico-canciones {
+  max-width: 1000px;
+  margin: 32px auto;
+}
+
+.mosaico-imagenes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mosaico-imagenes figure {
+  margin: 0;
+}
+
+.mosaico-imagenes figure a {
+  display: block;
+}
+
+.mosaico-imagenes img {
+  display: block;
+  width: 90%;
+  margin-inline: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.icono-cancion:hover {
+  background-color: rgb(235, 104, 61, 0.497);
+  transform: scale(1.1);
+  border-radius: 18px;
+}
+
+.mosaico-imagenes figcaption {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 700px) {
+  .mosaico-imagenes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.banner-lyrics {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 26px;
+}
+
+.banner-lyrics img {
+  width: min(50%, 500px);
+  height: auto;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.lyrics {
+  max-width: 700px;
+  margin-inline: auto;
+  text-align: left;
+}
+
+.boton-canal-youtube {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 26px;
+}
+
+.boton-canal-youtube img {
+  width: min(30%, 300px);
+  height: auto;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.boton-canal-youtube img:hover {
+  background-color: rgb(235, 104, 61, 0.497);
+  transform: scale(1.05);
+}
+
+.videos-youtube {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.video {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  background: #000;
+}
+
+.video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .videos-youtube {
+    grid-template-columns: 1fr;
+  }
+}
+
+.carrusel1-galeria-contenedor {
+ position: relative;        /* Permite posicionar la navegación de forma absoluta dentro de él */
+ max-width: 500px;          /* Ancho máximo del carrusel (ajustable según tu diseño) */
+ margin: 20px auto 0;        /* Separa el carrusel de la galería y lo centra */
+ overflow: hidden;          /* Oculta cualquier elemento que sobresalga de los bordes redondeados */
+ border-radius: 8px;        /* Bordes ligeramente redondeados (opcional) */
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra sutil para dar profundidad */
+}
+
+.galeria-diapositiva {
+ flex: 0 0 100%;            /* Evita que la diapositiva se encoja o crezca; ocupa el 100% exacto */
+ scroll-snap-align: start;  /* Indica que el inicio de esta caja es el punto de anclaje magnético */
+}
+
+.galeria-diapositiva img {
+ width: 100%;               /* La imagen se adapta al ancho del contenedor */
+ height: 400px;             /* Altura fija para mantener uniformidad entre fotos */
+ object-fit: cover;         /* Recorta los bordes de la imagen si es necesario sin estirarla */
+ display: block;            /* Elimina el pequeño espacio blanco inferior típico de las etiquetas <img> */
+}
+
+.contacto {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto 0;
+}
+
+.contacto-item {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  border-radius: 18px;
+  transition: transform 0.2s ease;
+}
+
+.contacto-item:hover {
+  background-color: #dc5b31;
+  transform: scale(1.05);
+}
+
+.contacto img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+.carruseles-galeria {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 20px auto 0;
+}
+
+.carrusel-con-pie {
+  min-width: 0;
+  margin: 0;
+}
+
+.carruseles-galeria .carrusel1-galeria-contenedor {
+  max-width: none;
+  margin: 0;
+}
+
+.carrusel-pie {
+  margin-top: 8px;
+  text-align: left;
+  font-size: 0.75rem;
+}
+
+.carrusel-feru-navegacion {
+  gap: 4px;
+}
+
+.carrusel-feru-navegacion a {
+  width: 8px;
+  height: 8px;
+}
+
+@media (max-width: 700px) {
+  .carruseles-galeria {
+    grid-template-columns: 1fr;
+  }
+}
