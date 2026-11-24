@@ -103,4 +103,25 @@
     <img src="señas galgos.png" alt="GALGOS">
     <p>afecto secundario 2026</p>
   </footer>
+
+  <script>
+    const carruselPista = document.querySelector(".carrusel-pista");
+    const carruselDiapositivas = document.querySelectorAll(".carrusel-diapositiva");
+    let carruselIndice = 0;
+
+    function mostrarDiapositiva(indice) {
+      if (!carruselPista || carruselDiapositivas.length === 0) return;
+
+      carruselIndice = (indice + carruselDiapositivas.length) % carruselDiapositivas.length;
+      carruselPista.scrollTo({
+        left: carruselDiapositivas[carruselIndice].offsetLeft,
+        behavior: "smooth"
+      });
+    }
+
+    window.setInterval(() => {
+      mostrarDiapositiva(carruselIndice + 1);
+    }, 4000);
+  </script>
 </body>
+</html>
