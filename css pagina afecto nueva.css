@@ -42,7 +42,7 @@ main {
 
 .footer img {
   display: block;
-  max-width: min(100%, 350px);
+  max-width: min(100%, 175px);
   height: auto;
 }
 
@@ -151,8 +151,8 @@ main {
 
 .carrusel-diapositiva img {
  width: 100%;               /* La imagen se adapta al ancho del contenedor */
- height: 400px;             /* Altura fija para mantener uniformidad entre fotos */
- object-fit: cover;         /* Recorta los bordes de la imagen si es necesario sin estirarla */
+ height: auto;              /* Conserva la proporción original de cada foto */
+ object-fit: contain;       /* Evita recortar las fotos */
  display: block;            /* Elimina el pequeño espacio blanco inferior típico de las etiquetas <img> */
 }
 
@@ -246,8 +246,60 @@ main {
 }
 
 @media (max-width: 700px) {
+  body {
+    padding: 12px;
+  }
+
+  .menu {
+    width: 100%;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .boton {
+    min-width: 0;
+    flex: 1 1 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  .galeria {
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+
+  .galeria img {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .carrusel-contenedor,
+  .carrusel1-galeria-contenedor {
+    width: 100%;
+  }
+
   .contenido-video {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .menu {
+    gap: 3px;
+  }
+
+  .boton {
+    font-size: 0.65rem;
+  }
+
+  .galeria {
+    gap: 4px;
+  }
+
+  .galeria img {
+    width: 34px;
+    height: 34px;
   }
 }
 
@@ -292,7 +344,8 @@ main {
 
 @media (max-width: 700px) {
   .mosaico-imagenes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
   }
 }
 
@@ -377,8 +430,8 @@ main {
 
 .galeria-diapositiva img {
  width: 100%;               /* La imagen se adapta al ancho del contenedor */
- height: 400px;             /* Altura fija para mantener uniformidad entre fotos */
- object-fit: cover;         /* Recorta los bordes de la imagen si es necesario sin estirarla */
+ height: auto;              /* Conserva la proporción original de cada foto */
+ object-fit: contain;       /* Evita recortar las fotos */
  display: block;            /* Elimina el pequeño espacio blanco inferior típico de las etiquetas <img> */
 }
 
